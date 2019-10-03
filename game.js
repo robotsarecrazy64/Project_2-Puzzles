@@ -50,11 +50,11 @@ update();
 	Initializes the Game Elements
 */
 function init() {
-	if ( current_level == max_level ) {
-		current_level = 0;
+	if ( current_level == 0 ) {
+		current_level = max_level;
 	}
 
-	current_level++;
+	current_level--;
 	floor_map = new PIXI.Sprite( PIXI.Texture.fromFrame( "floor" + current_level + ".png" ) );
 	floor_map.position.x = 0;
 	floor_map.position.y = 0;
