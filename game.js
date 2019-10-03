@@ -38,6 +38,11 @@ var upper_wall = 25;
 var upper_door = upper_wall - ( step * 2 );
 var lower_wall = 335;
 var lower_door = lower_wall + ( step * 2 );
+var top_of_door = 185;
+var left_door_bound = 185;
+var right_door_bound = 205;
+var upper_door_bound = 180;
+var lower_door_bound = 250;
 
 update();
 
@@ -72,8 +77,10 @@ function init() {
 	Update function to animate game assets
 */
 function update() {
-	//Check Boundary
-	correctPosition(player);
+	//Check Boundary for player
+	correctPosition( player );
+	//Check if player entered a door
+	checkDoorEntry( player );
 
 	// Update renderer
 	requestAnimationFrame( update );
@@ -108,28 +115,42 @@ function movePlayer( new_x, new_y ) {
 	createjs.Tween.get( player.position ).to({ x: new_x, y: new_y }, 250, createjs.Ease.backOut );
 }
 
-function correctPosition(sprite) {
+/**
+	Helper method to keep sprites from going out of bounds
+*/
+function correctPosition( sprite ) {
 	if ( ( sprite.position.x <= left_wall )&&
-	( ( sprite.position.y < 185 )||( sprite.position.y > 205 ) )) {
+	( ( sprite.position.y < left_door_bound )||( sprite.position.y > right_door_bound ) )) {
 		sprite.position.x = left_wall;
 	}
 
 	if ( ( sprite.position.x >= right_wall )&&
-	( ( sprite.position.y < 185 )||( sprite.position.y > 205 ) )) {
+	( ( sprite.position.y < left_door_bound )||( sprite.position.y > right_door_bound ) )) {
 		sprite.position.x = right_wall;
 	}
 
 	if ( ( sprite.position.y <= upper_wall )&&
-	( ( sprite.position.x < 180 )||( sprite.position.x > 250 ) )) {
+	( ( sprite.position.x < upper_door_bound )||( sprite.position.x > lower_door_bound50 ) )) {
 		sprite.position.y = upper_wall;
 	}
 
 	if ( ( sprite.position.y >= lower_wall )&&
-	( ( sprite.position.x < 180 )||( sprite.position.x > 250 ) )) {
+	( ( sprite.position.x < upper_door_bound )||( sprite.position.x > lower_door_bound ) )) {
 		sprite.position.y = lower_wall;
 	}
+}
 
+/**
+	Helper method for moving to the next level
+*/
+function nextLevel () {
+	init();
+}
 
+/**
+	Helper Method for checking if a door was entered
+*/
+function checkDoorEntry ( sprite ) {
 	if ( sprite.position.x < left_door ) { 
 		nextLevel();
 	}
@@ -148,6 +169,3 @@ function correctPosition(sprite) {
 
 }
 
-function nextLevel () {
-	init();
-}

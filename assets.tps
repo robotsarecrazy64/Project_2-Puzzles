@@ -132,7 +132,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>assets.json</filename>
+                <filename></filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -201,20 +201,18 @@
         </map>
         <key>fileList</key>
         <array>
+            <filename>floor3.png</filename>
             <filename>floor4.png</filename>
             <filename>floor5.png</filename>
             <filename>floor1.png</filename>
             <filename>floor2.png</filename>
-            <filename>floor3.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
         <key>replaceList</key>
         <array/>
         <key>ignoredWarnings</key>
-        <array>
-            <string>try-pro-features</string>
-        </array>
+        <array/>
         <key>commonDivisorX</key>
         <uint>1</uint>
         <key>commonDivisorY</key>
