@@ -132,7 +132,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename></filename>
+                <filename>assets.json</filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -182,10 +182,20 @@
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
             <key type="filename">floor1.png</key>
+            <key type="filename">floor10.png</key>
+            <key type="filename">floor11.png</key>
+            <key type="filename">floor12.png</key>
+            <key type="filename">floor13.png</key>
+            <key type="filename">floor14.png</key>
+            <key type="filename">floor15.png</key>
             <key type="filename">floor2.png</key>
             <key type="filename">floor3.png</key>
             <key type="filename">floor4.png</key>
             <key type="filename">floor5.png</key>
+            <key type="filename">floor6.png</key>
+            <key type="filename">floor7.png</key>
+            <key type="filename">floor8.png</key>
+            <key type="filename">floor9.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -201,18 +211,30 @@
         </map>
         <key>fileList</key>
         <array>
-            <filename>floor3.png</filename>
-            <filename>floor4.png</filename>
             <filename>floor5.png</filename>
+            <filename>floor6.png</filename>
+            <filename>floor7.png</filename>
+            <filename>floor8.png</filename>
+            <filename>floor9.png</filename>
+            <filename>floor10.png</filename>
+            <filename>floor11.png</filename>
+            <filename>floor12.png</filename>
+            <filename>floor13.png</filename>
+            <filename>floor14.png</filename>
+            <filename>floor15.png</filename>
             <filename>floor1.png</filename>
             <filename>floor2.png</filename>
+            <filename>floor3.png</filename>
+            <filename>floor4.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
         <key>replaceList</key>
         <array/>
         <key>ignoredWarnings</key>
-        <array/>
+        <array>
+            <string>try-pro-features</string>
+        </array>
         <key>commonDivisorX</key>
         <uint>1</uint>
         <key>commonDivisorY</key>

@@ -15,6 +15,9 @@ PIXI.loader
   
 // Assets
 var player;
+var enemy_a;
+var enemy_b;
+var enemy_c;
 var floor_map;
 
 /**
@@ -24,7 +27,7 @@ Exhaustion (slowly drains per wrong door until GAME OVER)
 */
   
 // Variables to improve readability
-var current_level = 0;
+var current_level = 6;
 var max_level = 5
 var step = 25;
 var start_x = 200;
@@ -43,6 +46,8 @@ var left_door_bound = 185;
 var right_door_bound = 205;
 var upper_door_bound = 180;
 var lower_door_bound = 250;
+var game_win = false;
+var game_over = false;
 
 update();
 
@@ -50,11 +55,11 @@ update();
 	Initializes the Game Elements
 */
 function init() {
-	if ( current_level == 0 ) {
+	current_level--;
+	if ( current_level <= 0 ) {
 		current_level = max_level;
 	}
 
-	current_level--;
 	floor_map = new PIXI.Sprite( PIXI.Texture.fromFrame( "floor" + current_level + ".png" ) );
 	floor_map.position.x = 0;
 	floor_map.position.y = 0;
@@ -62,13 +67,19 @@ function init() {
 	floor_map.scale.y = 5;
 	stage.addChild( floor_map );
 
-	player = new PIXI.Sprite.fromImage( "Player.png" );
-	player.scale.x = 2;
-	player.scale.y = 2;
-	player.position.x = start_x;
-	player.position.y = start_y;
+	player = new PIXI.Sprite( PIXI.Texture.fromFrame( "floor6.png" ) );
+	resetPosition( player );
 	stage.addChild( player );
-  
+
+	enemy_a = addEnemy( 100, 100 );
+	enemy_a.play();
+	stage.addChild( enemy_a );
+	
+	enemy_b = addEnemy( 250, 250 );
+	enemy_b.play();
+	stage.addChild( enemy_b );
+
+
 	document.addEventListener('keydown', keydownEventHandler);	
 	requestAnimationFrame( update );
 }
@@ -79,8 +90,12 @@ function init() {
 function update() {
 	//Check Boundary for player
 	correctPosition( player );
+	
 	//Check if player entered a door
-	checkDoorEntry( player );
+	checkDoorEntry( player, current_level );
+
+	//Check for enemy collision
+	
 
 	// Update renderer
 	requestAnimationFrame( update );
@@ -91,21 +106,58 @@ function update() {
 	Event Handler for Key events
 */
 function keydownEventHandler(event) {
-  	if ( event.keyCode == 87 ) { // W key
-		movePlayer( player.position.x, player.position.y - step );	
-  	}
+	if ( !game_win ) {
+  		if ( event.keyCode == 87 ) { // W key
+			// Update the player sprite to upper facing player
+			var temp_x = player.position.x;
+			var temp_y = player.position.y;
+			stage.removeChild( player );
+			player = new PIXI.Sprite( PIXI.Texture.fromFrame( "floor9.png" ) );
+			player.position.x = temp_x;
+			player.position.y = temp_y;
+			stage.addChild( player );
+			movePlayer( temp_x, temp_y - step );		
+			update();
+  		}
 
-  	if ( event.keyCode == 65 ) { // A key
-		movePlayer( player.position.x - step, player.position.y );
-  	}
+  		if ( event.keyCode == 65 ) { // A key
+			// Update the player sprite to left facing player
+			var temp_x = player.position.x;
+			var temp_y = player.position.y;
+			stage.removeChild( player );
+			player = new PIXI.Sprite( PIXI.Texture.fromFrame( "floor7.png" ) );
+			player.position.x = temp_x;
+			player.position.y = temp_y;
+			stage.addChild( player );
+			movePlayer( temp_x - step, temp_y );		
+			update();
+  		}
 	
-	if ( event.keyCode == 83 ) { // S key
-		movePlayer( player.position.x, player.position.y + step );
-  	}
+		if ( event.keyCode == 83 ) { // S key
+			// Update the player sprite to lower facing player
+			var temp_x = player.position.x;
+			var temp_y = player.position.y;
+			stage.removeChild( player );
+			player = new PIXI.Sprite( PIXI.Texture.fromFrame( "floor8.png" ) );
+			player.position.x = temp_x;
+			player.position.y = temp_y;
+			stage.addChild( player );
+			movePlayer( temp_x, temp_y + step );		
+			update();
+	  	}
 	
-	if ( event.keyCode == 68 ) { // D key
-		movePlayer( player.position.x + step, player.position.y );
-  	}
+		if ( event.keyCode == 68 ) { // D key	
+			var temp_x = player.position.x + step;
+			var temp_y = player.position.y;
+			stage.removeChild( player );
+			player = new PIXI.Sprite( PIXI.Texture.fromFrame( "floor6.png" ) );
+			player.position.x = temp_x - step;
+			player.position.y = temp_y;
+				stage.addChild( player );
+			movePlayer( temp_x, temp_y );		
+			update();
+  		}
+	}
 }
 
 /**
@@ -130,7 +182,7 @@ function correctPosition( sprite ) {
 	}
 
 	if ( ( sprite.position.y <= upper_wall )&&
-	( ( sprite.position.x < upper_door_bound )||( sprite.position.x > lower_door_bound50 ) )) {
+	( ( sprite.position.x < upper_door_bound )||( sprite.position.x > lower_door_bound ) )) {
 		sprite.position.y = upper_wall;
 	}
 
@@ -150,22 +202,141 @@ function nextLevel () {
 /**
 	Helper Method for checking if a door was entered
 */
-function checkDoorEntry ( sprite ) {
-	if ( sprite.position.x < left_door ) { 
-		nextLevel();
+function checkDoorEntry ( sprite, level ) {
+	if ( sprite.position.x < left_door ) {
+		switch( level ) {
+ 	 		case 5:
+    				resetPosition( sprite );
+    				break;
+  			case 4:
+     				resetPosition( sprite );
+    				break;
+  			case 3:
+    				nextLevel();
+    				break;
+  			case 2:
+    				resetPosition( sprite );
+    				break;
+  			case 1:
+    				if ( !game_win ) {
+					game_win = true;
+					stage.removeChild( player );
+					alert("Outside");				
+				}
+				break;
+		}	
 	}
 
 	if ( sprite.position.x > right_door ) {
-		nextLevel();
-	}
+		switch( level ) {
+ 	 		case 5:
+    				resetPosition( sprite );
+    				break;
+  			case 4:
+     				resetPosition( sprite );
+    				break;
+  			case 3:
+    				resetPosition( sprite );
+    				break;
+  			case 2:
+    				nextLevel();
+    				break;
+  			case 1:
+    				resetPosition( sprite );
+				break;
+		}	}
 
 	if ( sprite.position.y < upper_door ) {
-		nextLevel();
+		switch( level ) {
+ 	 		case 5:
+    				nextLevel();
+    				break;
+  			case 4:
+     				resetPosition( sprite );
+    				break;
+  			case 3:
+    				resetPosition( sprite );
+    				break;
+  			case 2:
+    				resetPosition( sprite );
+    				break;
+  			case 1:
+    				resetPosition( sprite );
+				break;
+		}
 	}
 
 	if ( sprite.position.y > lower_door ) {
-		nextLevel();
+		switch( level ) {
+ 	 		case 5:
+    				resetPosition( sprite );
+    				break;
+  			case 4:
+     				nextLevel();
+    				break;
+  			case 3:
+    				resetPosition( sprite );
+    				break;
+  			case 2:
+    				resetPosition( sprite );
+    				break;
+  			case 1:
+    				resetPosition( sprite );
+				break;
+		}	
 	}
+}
+
+function resetPosition( sprite ) {
+	sprite.position.x = start_x;
+	sprite.position.y = start_y;
 
 }
+
+/**
+	Helper function that returns a random number from 1 to max
+*/
+function getRand( max ) {
+	return Math.floor(( Math.random() * max ) + 1 );
+}
+
+/**
+	Helper function that returns a random enemy at a specified location
+*/
+function addEnemy( x, y ) {
+	var bat = createMovieClip( 10, 11 );
+	var snake = createMovieClip( 12, 15 );
+	var rand_num = getRand( 2 ); // get a random number (1 or 2)
+	
+	
+	if ( rand_num == 1 ) { // adds a bat
+		bat.position.x = x;
+	  	bat.position.y = y;
+		bat.animationSpeed = 0.1;
+		return bat;
+	}
+	
+	else { // adds a snake
+		snake.scale.x = 1.5;
+		snake.scale.y = 1.5;
+		snake.position.x = x;
+	  	snake.position.y = y;
+		snake.animationSpeed = 0.1;
+		return snake;
+	}
+}
+
+/**
+	Helper function that returns a movie clip
+*/
+
+function createMovieClip ( low, high ) {
+	var clips = [];
+	for ( var i = low; i <= high; i++ ) {
+    		clips.push( PIXI.Texture.fromFrame( 'floor' + i + '.png' ) );
+  	}
+
+  	return new PIXI.extras.MovieClip( clips );
+}
+
 
