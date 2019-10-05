@@ -156,33 +156,24 @@ function generateLevel() {
 }
 
 /**
-	Generates Game Win Condition
+	Generates Game End Condition
 */
 
-function generateWinScreen () {
+function generateEndGame () {
 	stage.removeChild( game_stage ); 
-	
-	end_game = new PIXI.Sprite( PIXI.Texture.fromFrame( "game_win.png" ) );
-	end_game.position.x = 0;
-	end_game.position.y = 0;		
-	end_game.scale.x = 5;
-	end_game.scale.y = 5;
-	end_stage.addChild( end_game );
+	game_active = false;
 
-	menu_button = createButton( button_x - step, button_y, "menu_button.png" );
-	end_stage.addChild( menu_button );
+	if ( game_win ) {
+		end_game = new PIXI.Sprite( PIXI.Texture.fromFrame( "game_win.png" ) );
+		end_game.position.x = 0;
+		end_game.position.y = 0;		
+		end_game.scale.x = 5;
+		end_game.scale.y = 5;
+		end_stage.addChild( end_game );
 
-	game_over = true;
-	stage.addChild( end_stage );
-}
+	}
 
-/**
-	Checks for Game Losing Condition
-*/
-function checkExhaustion () {
-	if ( exhaustion == 0 ) {
-		stage.removeChild( game_stage ); 
-		
+	else {
 		end_game = new PIXI.Sprite( PIXI.Texture.fromFrame( "game_over.png" ) );
 		end_game.position.x = 0;
 		end_game.position.y = 0;
@@ -195,14 +186,25 @@ function checkExhaustion () {
 	
 		enemy_b = addEnemy( 100, 300 );
 		end_stage.addChild( enemy_b );
-		
-		menu_button = createButton( button_x - step, button_y, "menu_button.png" );
-		end_stage.addChild( menu_button );
+	}
 	
-		stage.addChild( end_stage );
+	menu_button = createButton( button_x - step, button_y, "menu_button.png" );
+	end_stage.addChild( menu_button );
 
+	game_over = true;
+	stage.addChild( end_stage );
+
+}
+
+/**
+	Checks for Game Losing Condition
+*/
+function checkExhaustion () {
+	if ( exhaustion == 0 ) {
+		stage.removeChild( game_stage ); 
 		game_over = true;
 		exhaustion--;
+		generateEndGame();
 	}
 
 }
@@ -387,7 +389,7 @@ function checkDoorEntry ( sprite, level ) {
   			case 1:
     				if ( !game_win ) {
 					game_win = true;
-					generateWinScreen();				
+					generateEndGame();				
 				}
 				break;
 		}	
