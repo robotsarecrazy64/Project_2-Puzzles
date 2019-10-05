@@ -181,21 +181,27 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
+            <key type="filename">bat1.png</key>
+            <key type="filename">bat2.png</key>
             <key type="filename">floor1.png</key>
-            <key type="filename">floor10.png</key>
-            <key type="filename">floor11.png</key>
-            <key type="filename">floor12.png</key>
-            <key type="filename">floor13.png</key>
-            <key type="filename">floor14.png</key>
-            <key type="filename">floor15.png</key>
             <key type="filename">floor2.png</key>
             <key type="filename">floor3.png</key>
             <key type="filename">floor4.png</key>
             <key type="filename">floor5.png</key>
-            <key type="filename">floor6.png</key>
-            <key type="filename">floor7.png</key>
-            <key type="filename">floor8.png</key>
-            <key type="filename">floor9.png</key>
+            <key type="filename">game_over.png</key>
+            <key type="filename">game_win.png</key>
+            <key type="filename">guide1.png</key>
+            <key type="filename">guide2.png</key>
+            <key type="filename">guide3.png</key>
+            <key type="filename">main_menu.png</key>
+            <key type="filename">player1.png</key>
+            <key type="filename">player2.png</key>
+            <key type="filename">player3.png</key>
+            <key type="filename">player4.png</key>
+            <key type="filename">snake1.png</key>
+            <key type="filename">snake2.png</key>
+            <key type="filename">snake3.png</key>
+            <key type="filename">snake4.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -208,33 +214,71 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">guide_button.png</key>
+            <key type="filename">menu_button.png</key>
+            <key type="filename">play_button.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>25,6,50,13</rect>
+                <key>scale9Paddings</key>
+                <rect>25,6,50,13</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">left_arrow_button.png</key>
+            <key type="filename">right_arrow_button.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>13,6,25,13</rect>
+                <key>scale9Paddings</key>
+                <rect>13,6,25,13</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
         </map>
         <key>fileList</key>
         <array>
-            <filename>floor5.png</filename>
-            <filename>floor6.png</filename>
-            <filename>floor7.png</filename>
-            <filename>floor8.png</filename>
-            <filename>floor9.png</filename>
-            <filename>floor10.png</filename>
-            <filename>floor11.png</filename>
-            <filename>floor12.png</filename>
-            <filename>floor13.png</filename>
-            <filename>floor14.png</filename>
-            <filename>floor15.png</filename>
+            <filename>player3.png</filename>
+            <filename>player4.png</filename>
+            <filename>right_arrow_button.png</filename>
+            <filename>snake1.png</filename>
+            <filename>snake2.png</filename>
+            <filename>snake3.png</filename>
+            <filename>snake4.png</filename>
+            <filename>bat1.png</filename>
+            <filename>bat2.png</filename>
             <filename>floor1.png</filename>
             <filename>floor2.png</filename>
             <filename>floor3.png</filename>
             <filename>floor4.png</filename>
+            <filename>floor5.png</filename>
+            <filename>game_over.png</filename>
+            <filename>game_win.png</filename>
+            <filename>guide_button.png</filename>
+            <filename>guide1.png</filename>
+            <filename>guide2.png</filename>
+            <filename>guide3.png</filename>
+            <filename>left_arrow_button.png</filename>
+            <filename>main_menu.png</filename>
+            <filename>menu_button.png</filename>
+            <filename>play_button.png</filename>
+            <filename>player1.png</filename>
+            <filename>player2.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
         <key>replaceList</key>
         <array/>
         <key>ignoredWarnings</key>
-        <array>
-            <string>try-pro-features</string>
-        </array>
+        <array/>
         <key>commonDivisorX</key>
         <uint>1</uint>
         <key>commonDivisorY</key>
