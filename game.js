@@ -33,6 +33,7 @@ var enemy_b_health;
 var enemy_c;
 var enemy_c_health;
 var floor_map;
+var floor_code;
 var hp_tag;
 var ex_meter;
 var added_ex_meter;
@@ -50,7 +51,7 @@ var credits;
 var current_level = 6;
 var current_guide = 0;
 var max_level = 5
-var step = 25;
+var step = 20;
 var start_x = 200;
 var start_y = 200;
 var end_of_map = 500;
@@ -65,16 +66,25 @@ var lower_door = lower_wall +  step;
 var top_of_door = 185;
 var left_door_bound = 190;
 var right_door_bound = 205;
-var upper_door_bound = 160;
+var upper_door_bound = 150;
 var lower_door_bound = 280;
 var exhaustion = 10;
 var game_win = false;
 var game_over = false;
 var game_active = false;
+var left_button_x = -45;
+var right_arrow_button_x = 125;
 var button_x = 265;
 var button_y = 425;
+var hp_tag_y = 470;
+var left_position = 100;
+var right_position = 300;
 
+/**
+	Generates Main Menu Screen
+*/
 function main_menu () {
+	// Resets Game Variables
 	exhaustion = 10;
 	game_win = false;
 	game_over = false;
@@ -87,7 +97,7 @@ function main_menu () {
 	play_button = createButton( button_x, button_y, "play_button.png" );
 	main_stage.addChild( play_button );
 
-	guide_button = createButton( -45, button_y, "guide_button.png" );
+	guide_button = createButton( left_button_x, button_y, "guide_button.png" );
 	main_stage.addChild( guide_button );
 	
 	stage.addChild( main_stage );
@@ -95,14 +105,13 @@ function main_menu () {
 	update();
 }
 
+/**
+	Generates Guide Screen
+*/
 function generateGuide() {
-	if( current_guide >= 3 ) {
-		current_guide = 0;
-	}
+	if( current_guide >= 3 ) { current_guide = 0; }
 
-	if( current_guide < 0 ) {
-		current_guide = 2;
-	}
+	if( current_guide < 0 ) { current_guide = 2; }
 
 	current_guide++;
 	guide = createSprite( 0, 0, max_level, max_level, ( "guide" + current_guide + ".png" ) );
@@ -111,7 +120,7 @@ function generateGuide() {
 	left_arrow_button = createButton( 0, button_y, "left_arrow_button.png" );
 	guide_stage.addChild( left_arrow_button );
 
-	right_arrow_button = createButton( 125, button_y, "right_arrow_button.png" );
+	right_arrow_button = createButton( right_arrow_button_x, button_y, "right_arrow_button.png" );
 	guide_stage.addChild( right_arrow_button );
 
 	menu_button = createButton( button_x - step, button_y, "menu_button.png" );
@@ -134,28 +143,31 @@ function generateLevel() {
 	floor_map = createSprite( 0, 0, max_level, max_level, ( "floor" + current_level + ".png" ) );
 	game_stage.addChild( floor_map );
 
+	// Generate Door code
+	floor_code = generateDoorCode();
+
 	player = createSprite( start_x, start_y, 1, 1, "player1.png" );
 	game_stage.addChild( player );
 
-	enemy_a = addEnemy( 150, 39 + getRand( 250 ) );
+	enemy_a = addEnemy( upper_door_bound, left_wall + getRand( right_position ) );
 	enemy_a.interactive = true;
 	enemy_a.on('mousedown', enemyHandler);
 	enemy_a_health = getRand( 4 );
 	game_stage.addChild( enemy_a );
 	
-	enemy_b = addEnemy( 351 - getRand( 200 ), 300 );
+	enemy_b = addEnemy( right_wall - getRand( start_x ), right_position );
 	enemy_b.interactive = true;
 	enemy_b.on('mousedown', enemyHandler);
 	enemy_b_health = getRand( 4 );
 	game_stage.addChild( enemy_b );
 
-	enemy_c = addEnemy( 300, 50 + getRand( 200 ) );
+	enemy_c = addEnemy( left_position, ( upper_wall * 2 ) + getRand( start_x ) );
 	enemy_c.interactive = true;
 	enemy_c.on('mousedown', enemyHandler);
 	enemy_c_health = getRand( 4 );
 	game_stage.addChild( enemy_c );
 
-	hp_tag = createSprite( 0, 470, 1, 1, "hp_tag.png" );
+	hp_tag = createSprite( 0, hp_tag_y, 1, 1, "hp_tag.png" );
 	game_stage.addChild( hp_tag );
 
 	hit = PIXI.audioManager.getAudio("hit.mp3");
@@ -174,22 +186,25 @@ function generateLevel() {
 	Generates Game End Screen
 */
 function generateEndGame () {
-	stage.removeChild( game_stage ); 
 	game_active = false;
 
 	if ( game_win ) {
 		end_game = createSprite( 0, 0, max_level, max_level, "game_win.png" );
 		end_stage.addChild( end_game );
+
+		player = createMovieClip(  50, 300, 1, 1, "player", 1, 4 );
+		end_stage.addChild( player );
+
 	}
 
 	else {
 		end_game = createSprite( 0, 0, max_level, max_level, "game_over.png" );
 		end_stage.addChild( end_game );
 	
-		enemy_a = addEnemy( 351 - getRand( 150 ), 35 );
+		enemy_a = addEnemy( right_wall - getRand( upper_door_bound ), left_wall );
 		end_stage.addChild( enemy_a );
 	
-		enemy_b = addEnemy( 100, 300 );
+		enemy_b = addEnemy( left_position, right_position );
 		end_stage.addChild( enemy_b );
 	}
 	
@@ -202,6 +217,9 @@ function generateEndGame () {
 
 }
 
+/**
+	Generates Credits Screen
+*/
 function generateCredits() {
 	credits = createSprite( 0, 0, max_level, max_level, "credits.png" );
 	credit_stage.addChild( credits );
@@ -240,6 +258,7 @@ function update() {
 function checkExhaustion () {
 	if ( exhaustion == 0 ) {
 		stage.removeChild( game_stage ); 
+		consume.play();
 		game_over = true;
 		exhaustion--;
 		generateEndGame();
@@ -247,7 +266,9 @@ function checkExhaustion () {
 
 }
 
-
+/**
+	Helper function that displays the exhaustion meter
+*/
 function generateExMeter () {
 	if ( exhaustion < 0 ) { exhaustion = 0; }
 
@@ -267,19 +288,11 @@ function correctPosition( sprite ) {
 	( ( sprite.position.y < left_door_bound )||( sprite.position.y > right_door_bound ) )) {
 		sprite.position.x = left_wall;
 	}
-        
-	if( sprite.position.x < -step ) {
-		//sprite.position.x = start_x;
-	}
-	
+
 	// Right Boundary
 	if ( ( sprite.position.x >= right_wall )&&
 	( ( sprite.position.y < left_door_bound )||( sprite.position.y > right_door_bound ) )) {
 		sprite.position.x = right_wall;
-	}
-
-	if( sprite.position.x >  ( right_door + step ) ) {
-		//sprite.position.x = start_x;
 	}
 
 	// Upper Boundary
@@ -288,19 +301,10 @@ function correctPosition( sprite ) {
 		sprite.position.y = upper_wall;
 	}
 
-	if( sprite.position.y < -step ) {
-		//sprite.position.y = start_y;
-	}
-
-
 	// Lower Boundary
 	if ( ( sprite.position.y >= lower_wall )&&
 	( ( sprite.position.x < upper_door_bound )||( sprite.position.x > lower_door_bound ) )) {
 		sprite.position.y = lower_wall;
-	}
-	
-	if( sprite.position.y > ( lower_door + step ) ) {
-		//sprite.position.y = start_y;
 	}
 
 }
@@ -310,139 +314,72 @@ function correctPosition( sprite ) {
 */
 function checkDoorEntry ( sprite, level ) {
 	if ( sprite.position.x <= left_door ) {
-		switch( level ) {
- 	 		case 5:
-    				hit.play();
-				wrongDoor();
-    				break;
-  			case 4:
-     				hit.play();
-				wrongDoor();
-    				break;
-  			case 3:
-    				enter_door.play();
-				nextLevel();
-    				break;
-  			case 2:
-    				hit.play();
-				wrongDoor();
-    				break;
-  			case 1:
-    				if ( !game_win ) {
-					game_win = true;
-					enter_door.play();
-					generateEndGame();				
-				}
-				break;
-		}	
+		openDoor( 0 );	
 	}
 
 	if ( sprite.position.x >= right_door ) {
-		switch( level ) {
- 	 		case 5:
-    				hit.play();
-				wrongDoor();
-    				break;
-  			case 4:
-     				hit.play();
-				wrongDoor();
-    				break;
-  			case 3:
-    				hit.play();
-				wrongDoor();
-    				break;
-  			case 2:
-    				enter_door.play();
-				nextLevel();
-    				break;
-  			case 1:
-    				hit.play();
-				wrongDoor();
-    				break;
-		}	}
+		openDoor( 1 );	
+	}
 
 	if ( sprite.position.y <= upper_door ) {
-		switch( level ) {
- 	 		case 5:
-    				enter_door.play();
-				nextLevel();
-    				break;
-  			case 4:
-     				hit.play();
-				wrongDoor();
-    				break;
-  			case 3:
-    				hit.play();
-				wrongDoor();
-    				break;
-  			case 2:
-    				hit.play();
-				wrongDoor();
-    				break;
-  			case 1:
-    				hit.play();
-				wrongDoor();
-    				break;
-		}
+		openDoor( 2 );		
 	}
 
 	if ( sprite.position.y >= lower_door ) {
-		switch( level ) {
- 	 		case 5:
-    				hit.play();
-				wrongDoor();
-    				break;
-  			case 4:
-     				enter_door.play();
-				nextLevel();
-    				break;
-  			case 3:
-    				hit.play();
-				wrongDoor();
-    				break;
-  			case 2:
-    				hit.play();
-				wrongDoor();
-    				break;
-  			case 1:
-    				hit.play();
-				wrongDoor();
-    				break;
-		}	
+		openDoor( 3 );	
+	}	
+}
+
+/**
+	Helper function that opens the door at the specified position and checks if the door is correct
+*/
+function openDoor( door_position ) {
+	if ( floor_code[ door_position ] == 1 ) { // correct door choice
+		if ( !game_win && ( current_level == 1 ) ) { // Last level (Game Win)
+			game_win = true;
+			enter_door.play();
+			generateEndGame();				
+		}
+	
+		else { // Move to the next level
+			enter_door.play();
+			nextLevel();
+			return true;
+		}
+	}
+	else { // wrong door choice
+		hit.play();
+		wrongDoor();
+		return false;
 	}
 }
 
-
 /**
-	Event Handler for Key events
+	Event Handler for Key events (Player movement)
 */
-function keydownEventHandler(event) {
-	var temp_x = player.position.x;
-	var temp_y = player.position.y;
-	game_stage.removeChild( player );
-	
+function keydownEventHandler( event ) {	
 	if ( game_active ) {
+		var temp_x = player.position.x;
+		var temp_y = player.position.y;
+
   		if ( event.keyCode == 87 ) { // W key
 			// Update the player sprite to upper facing player
-			player = createSprite( temp_x, temp_y - step, 1, 1, "player4.png"  );
-			game_stage.addChild( player );
+			swapPlayer( temp_x, temp_y - step, 1, 1, "player4.png"  );
   		}
 
   		if ( event.keyCode == 65 ) { // A key
 			// Update the player sprite to left facing player
-			player = createSprite( temp_x - step, temp_y, 1, 1, "player2.png"  );
-			game_stage.addChild( player );
+			swapPlayer( temp_x - step, temp_y, 1, 1, "player2.png"  );
   		}
 	
 		if ( event.keyCode == 83 ) { // S key
 			// Update the player sprite to lower facing player
-			player = createSprite( temp_x, temp_y + step, 1, 1, "player3.png"  );
-			game_stage.addChild( player );
+			swapPlayer( temp_x, temp_y + step, 1, 1, "player3.png"  );
 	  	}
 	
-		if ( event.keyCode == 68 ) { // D key	
-			player = createSprite( temp_x + step, temp_y, 1, 1, "player1.png"  );
-			game_stage.addChild( player );
+		if ( event.keyCode == 68 ) { // D key
+			// Update the player sprite to right facing player
+			swapPlayer( temp_x + step, temp_y, 1, 1, "player1.png"  );
 		}
 	}
 }
@@ -450,87 +387,94 @@ function keydownEventHandler(event) {
 /**
 	Event Handler for Button events
 */
-
 function buttonHandler( event ) {
-	clearStage();
-
-	if ( event.target == play_button ) {
-		generateLevel();
-	}
+	clearStage(); // clears the stage
 	
-	else if ( event.target == menu_button ) {
-		main_menu();
-	}
+	switch( event.target ) {
+		case play_button :
+			generateLevel(); // load game screen
+			break;
 
-	else if ( event.target == guide_button ) {
-		generateGuide();
-	}
-	
-	else if ( event.target == credit_button ) {
-		generateCredits();
-	}
+		case menu_button: 
+			main_menu(); // load menu screen
+			break;
 
-	else if ( event.target == right_arrow_button ) {
-		generateGuide();
-	}
+		case guide_button:
+			generateGuide(); // load guide screen
+			break;
 
-	else if ( event.target == left_arrow_button ) {
-		current_guide--;
-		current_guide--;
-		generateGuide();
-	}	
+		case credit_button: 
+			generateCredits(); // load credits screen
+			break;
+
+		case right_arrow_button:
+			generateGuide(); // navigate guide screen right
+			break;
+
+		case left_arrow_button:
+			current_guide--;
+			current_guide--;
+			generateGuide(); // navigate guide screen left
+			break;
+	}
 }
 
+/**
+	Manages enemy click events for each enemy in the level
+*/
 function enemyHandler ( event ) {
 	if ( event.target == enemy_a ) {
-		enemy_a_health = attackSprite( player, enemy_a, enemy_a_health ); 
-		if ( enemy_a_health <= 0 ) {
+		enemy_a_health = attackSprite( player, enemy_a, enemy_a_health ); // engage enemy
+		if ( enemy_a_health <= 0 ) { // enemy dies and gives random xp
 			consume.play();
 			game_stage.removeChild( enemy_a );
 			exhaustion += getRand( 2 );
 		}
 
-		else {
-			moveSprite( enemy_a, fixX( getRand( 150 ) + 100 ), fixY( getRand( 150 ) + 100 ) );
+		else { // run away
+			moveSprite( enemy_a, fixX( getRand( upper_door_bound ) + left_position ), fixY( getRand( upper_door_bound ) + left_position ) );
 		}
 
 	}
 
 	else if ( event.target == enemy_b ) {
-		enemy_b_health = attackSprite( player, enemy_b, enemy_b_health ); 
-		if ( enemy_b_health <= 0 ) {
+		enemy_b_health = attackSprite( player, enemy_b, enemy_b_health ); // engage enemy
+		if ( enemy_b_health <= 0 ) { // enemy dies and gives random xp
 			consume.play();
 			game_stage.removeChild( enemy_b );
 			exhaustion += getRand( 2 );
 		}
 		
-		else {
-			moveSprite( enemy_b, fixX( getRand( 150 ) + 100 ), fixY( getRand( 150 ) + 100 ) );
+		else { // run away
+			moveSprite( enemy_b, fixX( getRand( upper_door_bound ) + left_position ), fixY( getRand( upper_door_bound ) + left_position ) );
 		}
 
 	}
 
-	else if ( event.target == enemy_c ) {
-		enemy_c_health = attackSprite( player, enemy_c, enemy_c_health ); 
-		if ( enemy_c_health <= 0 ) {
+	else if ( event.target == enemy_c ) { 
+		enemy_c_health = attackSprite( player, enemy_c, enemy_c_health ); // engage enemy
+		if ( enemy_c_health <= 0 ) { // enemy dies and gives random xp
 			consume.play();
 			game_stage.removeChild( enemy_c );
 			exhaustion += getRand( 2 );
 		}
 
-		else {
-			moveSprite( enemy_c, fixX( getRand( 150 ) + 100 ), fixY( getRand( 150 ) + 100 ) );
+		else { // run away 
+			moveSprite( enemy_c, fixX( getRand( upper_door_bound ) + left_position ), fixY( getRand( upper_door_bound ) + left_position ) );
 		}
 
 	}
 }
 
+/**
+	Helper function that attacks the enemy sprite
+*/
 function attackSprite ( sprite1, sprite2, enemy_health ) {
 	var enemy_hit = getRand( 5 );
 
 	moveSprite( sprite1, sprite2.position.x, sprite2.position.y );
 	
-	if ( ( enemy_hit > 3 ) && ( enemy_health > 0 ) ) {
+	if ( ( enemy_hit > 3 ) && ( enemy_health > 0 ) ) { // 2/5 chance to hit the player back
 		hit.play();
 		moveSprite( sprite2, sprite1.position.x, sprite1.position.y );
 		exhaustion--;
@@ -545,26 +489,15 @@ function attackSprite ( sprite1, sprite2, enemy_health ) {
 	Helper function that returns a random enemy at a specified location
 */
 function addEnemy( x, y ) {
-	var bat = createMovieClip( "bat", 1, 2 );
-	var snake = createMovieClip( "snake", 1, 4 );
+	var bat = createMovieClip( x, y, 1, 1, "bat", 1, 2 );
+	var snake = createMovieClip(  x - 15, y, 1.5, 1.5, "snake", 1, 4 );
 	var rand_num = getRand( 2 ); // get a random number (1 or 2)
 	
-	
 	if ( rand_num == 1 ) { // adds a bat
-		bat.position.x = fixX( x );
-	  	bat.position.y = fixY ( y );
-		bat.animationSpeed = 0.1;
-		bat.play();
 		return bat;
 	}
 	
 	else { // adds a snake
-		snake.scale.x = 1.5;
-		snake.scale.y = 1.5;
-		snake.position.x = fixX( x - 15 );
-	  	snake.position.y = fixY( y );
-		snake.animationSpeed = 0.1;
-		snake.play();
 		return snake;
 	}
 }
@@ -572,34 +505,48 @@ function addEnemy( x, y ) {
 /**
 	Helper function that returns a movie clip
 */
-function createMovieClip ( image, low, high ) {
+function createMovieClip ( x, y, scale_x, scale_y, image, low, high ) {
 	var clips = [];
 	for ( var i = low; i <= high; i++ ) {
     		clips.push( PIXI.Texture.fromFrame( image + i + '.png' ) );
   	}
-
-  	return new PIXI.extras.MovieClip( clips );
+	
+	var movie_clip = new PIXI.extras.MovieClip( clips );
+	movie_clip.scale.x = scale_x;
+	movie_clip.scale.y = scale_y;
+	movie_clip.position.x = fixX( x );
+	movie_clip.position.y = fixY ( y );
+	movie_clip.animationSpeed = 0.1;
+	movie_clip.play();	
+  	return movie_clip;
 }
 
-
+/**
+	Helper function that restricts the enemy spawn location
+*/
 function fixX ( x ) {
 	if ( ( x >= left_door_bound ) && ( x <= right_door_bound ) ) {
-		return fixX ( getRand( 150 ) );
+		return fixX ( getRand( upper_door_bound ) );
 	}
 	
 	return x;
 }
 
-
+/**
+	Helper function that restricts the enemy spawn location
+*/
 function fixY ( y ) {
 	if ( ( y >= upper_door_bound ) && ( y <= lower_door_bound ) ) {
-		return fixY ( getRand( 150 ) );
+		return fixY ( getRand( upper_door_bound ) );
 	}
 	
 	return y;
 
 }
 
+/**
+	Helper function that creates a button
+*/
 function createButton ( x, y, image ) {
 	var button = createSprite( x, y, 3, 3, image );
 	button.interactive = true;
@@ -608,6 +555,9 @@ function createButton ( x, y, image ) {
 
 }
 
+/**
+	Helper function that creates a sprite
+*/
 function createSprite (x, y, scale_x, scale_y, image ) {
 	var sprite = new PIXI.Sprite( PIXI.Texture.fromFrame( image ) );
 	sprite.position.x = x;
@@ -617,6 +567,9 @@ function createSprite (x, y, scale_x, scale_y, image ) {
 	return sprite;
 }
 
+/**
+	Helper function that evaluates bad door choices
+*/
 function wrongDoor() {
 	exhaustion--;
 	resetPosition( player );
@@ -645,6 +598,9 @@ function getRand( max ) {
 	return Math.floor(( Math.random() * max ) + 1 );
 }
 
+/**
+	Helper function that clears all children from the main stage
+*/
 function clearStage () {
 	stage.removeChild( guide_stage );
 	stage.removeChild( end_stage );
@@ -658,5 +614,31 @@ function clearStage () {
 */
 function moveSprite( sprite, new_x, new_y ) {
 	createjs.Tween.get( sprite.position ).to({ x: new_x, y: new_y }, 200, createjs.Ease.backOut );
+}
+
+/**
+	Helper function that generates an array of numbers containing exactly one 1
+*/
+function generateDoorCode() {
+	var door_array = [];
+	var door_code = getRand( 4 );
+
+	for ( var value = 1; value < max_level; value++ ) {
+		if( value == door_code ) {
+			door_array.push( 1 );
+		}
+    		door_array.push( 0 );
+	}
+	
+	return door_array;
+}
+
+/**
+	Helper function that swaps the player sprite
+*/
+function swapPlayer ( x, y, scale_x, scale_y, image ) {
+	game_stage.removeChild( player );
+	player = createSprite( x, y, scale_x, scale_y, image );
+	game_stage.addChild( player );
 }
 
