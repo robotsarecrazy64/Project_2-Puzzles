@@ -183,6 +183,7 @@
         <map type="IndividualSpriteSettingsMap">
             <key type="filename">bat1.png</key>
             <key type="filename">bat2.png</key>
+            <key type="filename">credits.png</key>
             <key type="filename">floor1.png</key>
             <key type="filename">floor2.png</key>
             <key type="filename">floor3.png</key>
@@ -214,6 +215,7 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">credit_button.png</key>
             <key type="filename">guide_button.png</key>
             <key type="filename">menu_button.png</key>
             <key type="filename">play_button.png</key>
@@ -226,6 +228,43 @@
                 <rect>25,6,50,13</rect>
                 <key>scale9Paddings</key>
                 <rect>25,6,50,13</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">ex_meter0.png</key>
+            <key type="filename">ex_meter1.png</key>
+            <key type="filename">ex_meter10.png</key>
+            <key type="filename">ex_meter2.png</key>
+            <key type="filename">ex_meter3.png</key>
+            <key type="filename">ex_meter4.png</key>
+            <key type="filename">ex_meter5.png</key>
+            <key type="filename">ex_meter6.png</key>
+            <key type="filename">ex_meter7.png</key>
+            <key type="filename">ex_meter8.png</key>
+            <key type="filename">ex_meter9.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>63,6,125,13</rect>
+                <key>scale9Paddings</key>
+                <rect>63,6,125,13</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">ex_meter11.png</key>
+            <key type="filename">hp_tag.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>6,6,13,13</rect>
+                <key>scale9Paddings</key>
+                <rect>6,6,13,13</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -246,15 +285,12 @@
         </map>
         <key>fileList</key>
         <array>
-            <filename>player3.png</filename>
-            <filename>player4.png</filename>
-            <filename>right_arrow_button.png</filename>
-            <filename>snake1.png</filename>
-            <filename>snake2.png</filename>
-            <filename>snake3.png</filename>
-            <filename>snake4.png</filename>
-            <filename>bat1.png</filename>
-            <filename>bat2.png</filename>
+            <filename>ex_meter6.png</filename>
+            <filename>ex_meter7.png</filename>
+            <filename>ex_meter8.png</filename>
+            <filename>ex_meter9.png</filename>
+            <filename>ex_meter10.png</filename>
+            <filename>ex_meter11.png</filename>
             <filename>floor1.png</filename>
             <filename>floor2.png</filename>
             <filename>floor3.png</filename>
@@ -266,12 +302,30 @@
             <filename>guide1.png</filename>
             <filename>guide2.png</filename>
             <filename>guide3.png</filename>
+            <filename>hp_tag.png</filename>
             <filename>left_arrow_button.png</filename>
             <filename>main_menu.png</filename>
             <filename>menu_button.png</filename>
             <filename>play_button.png</filename>
             <filename>player1.png</filename>
             <filename>player2.png</filename>
+            <filename>player3.png</filename>
+            <filename>player4.png</filename>
+            <filename>right_arrow_button.png</filename>
+            <filename>snake1.png</filename>
+            <filename>snake2.png</filename>
+            <filename>snake3.png</filename>
+            <filename>snake4.png</filename>
+            <filename>bat1.png</filename>
+            <filename>bat2.png</filename>
+            <filename>credits.png</filename>
+            <filename>ex_meter0.png</filename>
+            <filename>ex_meter1.png</filename>
+            <filename>ex_meter2.png</filename>
+            <filename>ex_meter3.png</filename>
+            <filename>ex_meter4.png</filename>
+            <filename>ex_meter5.png</filename>
+            <filename>credit_button.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
