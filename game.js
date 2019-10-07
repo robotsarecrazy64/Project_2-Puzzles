@@ -232,7 +232,7 @@ function generateEndGame () {
 		enemy_a = addEnemy( right_wall - getRand( upper_door_bound ), left_wall );
 		end_stage.addChild( enemy_a );
 	
-		enemy_b = addEnemy( left_position, right_position );
+		enemy_b = addEnemy( left_position + getRand( upper_door_bound ), right_position + 10 );
 		end_stage.addChild( enemy_b );
 	}
 	
