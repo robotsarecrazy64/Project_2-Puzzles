@@ -181,28 +181,29 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">bat1.png</key>
-            <key type="filename">bat2.png</key>
-            <key type="filename">credits.png</key>
-            <key type="filename">floor1.png</key>
-            <key type="filename">floor2.png</key>
-            <key type="filename">floor3.png</key>
-            <key type="filename">floor4.png</key>
-            <key type="filename">floor5.png</key>
-            <key type="filename">game_over.png</key>
-            <key type="filename">game_win.png</key>
-            <key type="filename">guide1.png</key>
-            <key type="filename">guide2.png</key>
-            <key type="filename">guide3.png</key>
-            <key type="filename">main_menu.png</key>
-            <key type="filename">player1.png</key>
-            <key type="filename">player2.png</key>
-            <key type="filename">player3.png</key>
-            <key type="filename">player4.png</key>
-            <key type="filename">snake1.png</key>
-            <key type="filename">snake2.png</key>
-            <key type="filename">snake3.png</key>
-            <key type="filename">snake4.png</key>
+            <key type="filename">spritesheet_assets/bat1.png</key>
+            <key type="filename">spritesheet_assets/bat2.png</key>
+            <key type="filename">spritesheet_assets/credits.png</key>
+            <key type="filename">spritesheet_assets/difficulty.png</key>
+            <key type="filename">spritesheet_assets/floor1.png</key>
+            <key type="filename">spritesheet_assets/floor2.png</key>
+            <key type="filename">spritesheet_assets/floor3.png</key>
+            <key type="filename">spritesheet_assets/floor4.png</key>
+            <key type="filename">spritesheet_assets/floor5.png</key>
+            <key type="filename">spritesheet_assets/game_over.png</key>
+            <key type="filename">spritesheet_assets/game_win.png</key>
+            <key type="filename">spritesheet_assets/guide1.png</key>
+            <key type="filename">spritesheet_assets/guide2.png</key>
+            <key type="filename">spritesheet_assets/guide3.png</key>
+            <key type="filename">spritesheet_assets/main_menu.png</key>
+            <key type="filename">spritesheet_assets/player1.png</key>
+            <key type="filename">spritesheet_assets/player2.png</key>
+            <key type="filename">spritesheet_assets/player3.png</key>
+            <key type="filename">spritesheet_assets/player4.png</key>
+            <key type="filename">spritesheet_assets/snake1.png</key>
+            <key type="filename">spritesheet_assets/snake2.png</key>
+            <key type="filename">spritesheet_assets/snake3.png</key>
+            <key type="filename">spritesheet_assets/snake4.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -215,10 +216,12 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">credit_button.png</key>
-            <key type="filename">guide_button.png</key>
-            <key type="filename">menu_button.png</key>
-            <key type="filename">play_button.png</key>
+            <key type="filename">spritesheet_assets/credit_button.png</key>
+            <key type="filename">spritesheet_assets/guide_button.png</key>
+            <key type="filename">spritesheet_assets/impossible_button.png</key>
+            <key type="filename">spritesheet_assets/menu_button.png</key>
+            <key type="filename">spritesheet_assets/normal_button.png</key>
+            <key type="filename">spritesheet_assets/play_button.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -231,17 +234,17 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">ex_meter0.png</key>
-            <key type="filename">ex_meter1.png</key>
-            <key type="filename">ex_meter10.png</key>
-            <key type="filename">ex_meter2.png</key>
-            <key type="filename">ex_meter3.png</key>
-            <key type="filename">ex_meter4.png</key>
-            <key type="filename">ex_meter5.png</key>
-            <key type="filename">ex_meter6.png</key>
-            <key type="filename">ex_meter7.png</key>
-            <key type="filename">ex_meter8.png</key>
-            <key type="filename">ex_meter9.png</key>
+            <key type="filename">spritesheet_assets/ex_meter0.png</key>
+            <key type="filename">spritesheet_assets/ex_meter1.png</key>
+            <key type="filename">spritesheet_assets/ex_meter10.png</key>
+            <key type="filename">spritesheet_assets/ex_meter2.png</key>
+            <key type="filename">spritesheet_assets/ex_meter3.png</key>
+            <key type="filename">spritesheet_assets/ex_meter4.png</key>
+            <key type="filename">spritesheet_assets/ex_meter5.png</key>
+            <key type="filename">spritesheet_assets/ex_meter6.png</key>
+            <key type="filename">spritesheet_assets/ex_meter7.png</key>
+            <key type="filename">spritesheet_assets/ex_meter8.png</key>
+            <key type="filename">spritesheet_assets/ex_meter9.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -254,8 +257,8 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">ex_meter11.png</key>
-            <key type="filename">hp_tag.png</key>
+            <key type="filename">spritesheet_assets/ex_meter11.png</key>
+            <key type="filename">spritesheet_assets/hp_tag.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -268,8 +271,8 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">left_arrow_button.png</key>
-            <key type="filename">right_arrow_button.png</key>
+            <key type="filename">spritesheet_assets/left_arrow_button.png</key>
+            <key type="filename">spritesheet_assets/right_arrow_button.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -285,47 +288,50 @@
         </map>
         <key>fileList</key>
         <array>
-            <filename>ex_meter6.png</filename>
-            <filename>ex_meter7.png</filename>
-            <filename>ex_meter8.png</filename>
-            <filename>ex_meter9.png</filename>
-            <filename>ex_meter10.png</filename>
-            <filename>ex_meter11.png</filename>
-            <filename>floor1.png</filename>
-            <filename>floor2.png</filename>
-            <filename>floor3.png</filename>
-            <filename>floor4.png</filename>
-            <filename>floor5.png</filename>
-            <filename>game_over.png</filename>
-            <filename>game_win.png</filename>
-            <filename>guide_button.png</filename>
-            <filename>guide1.png</filename>
-            <filename>guide2.png</filename>
-            <filename>guide3.png</filename>
-            <filename>hp_tag.png</filename>
-            <filename>left_arrow_button.png</filename>
-            <filename>main_menu.png</filename>
-            <filename>menu_button.png</filename>
-            <filename>play_button.png</filename>
-            <filename>player1.png</filename>
-            <filename>player2.png</filename>
-            <filename>player3.png</filename>
-            <filename>player4.png</filename>
-            <filename>right_arrow_button.png</filename>
-            <filename>snake1.png</filename>
-            <filename>snake2.png</filename>
-            <filename>snake3.png</filename>
-            <filename>snake4.png</filename>
-            <filename>bat1.png</filename>
-            <filename>bat2.png</filename>
-            <filename>credits.png</filename>
-            <filename>ex_meter0.png</filename>
-            <filename>ex_meter1.png</filename>
-            <filename>ex_meter2.png</filename>
-            <filename>ex_meter3.png</filename>
-            <filename>ex_meter4.png</filename>
-            <filename>ex_meter5.png</filename>
-            <filename>credit_button.png</filename>
+            <filename>spritesheet_assets/ex_meter4.png</filename>
+            <filename>spritesheet_assets/ex_meter5.png</filename>
+            <filename>spritesheet_assets/ex_meter6.png</filename>
+            <filename>spritesheet_assets/ex_meter7.png</filename>
+            <filename>spritesheet_assets/ex_meter8.png</filename>
+            <filename>spritesheet_assets/ex_meter9.png</filename>
+            <filename>spritesheet_assets/ex_meter10.png</filename>
+            <filename>spritesheet_assets/ex_meter11.png</filename>
+            <filename>spritesheet_assets/floor1.png</filename>
+            <filename>spritesheet_assets/floor2.png</filename>
+            <filename>spritesheet_assets/floor3.png</filename>
+            <filename>spritesheet_assets/floor4.png</filename>
+            <filename>spritesheet_assets/floor5.png</filename>
+            <filename>spritesheet_assets/game_over.png</filename>
+            <filename>spritesheet_assets/game_win.png</filename>
+            <filename>spritesheet_assets/guide_button.png</filename>
+            <filename>spritesheet_assets/guide1.png</filename>
+            <filename>spritesheet_assets/guide2.png</filename>
+            <filename>spritesheet_assets/guide3.png</filename>
+            <filename>spritesheet_assets/hp_tag.png</filename>
+            <filename>spritesheet_assets/impossible_button.png</filename>
+            <filename>spritesheet_assets/left_arrow_button.png</filename>
+            <filename>spritesheet_assets/main_menu.png</filename>
+            <filename>spritesheet_assets/menu_button.png</filename>
+            <filename>spritesheet_assets/normal_button.png</filename>
+            <filename>spritesheet_assets/play_button.png</filename>
+            <filename>spritesheet_assets/player1.png</filename>
+            <filename>spritesheet_assets/player2.png</filename>
+            <filename>spritesheet_assets/player3.png</filename>
+            <filename>spritesheet_assets/player4.png</filename>
+            <filename>spritesheet_assets/right_arrow_button.png</filename>
+            <filename>spritesheet_assets/snake1.png</filename>
+            <filename>spritesheet_assets/snake2.png</filename>
+            <filename>spritesheet_assets/snake3.png</filename>
+            <filename>spritesheet_assets/snake4.png</filename>
+            <filename>spritesheet_assets/bat1.png</filename>
+            <filename>spritesheet_assets/bat2.png</filename>
+            <filename>spritesheet_assets/credit_button.png</filename>
+            <filename>spritesheet_assets/credits.png</filename>
+            <filename>spritesheet_assets/difficulty.png</filename>
+            <filename>spritesheet_assets/ex_meter0.png</filename>
+            <filename>spritesheet_assets/ex_meter1.png</filename>
+            <filename>spritesheet_assets/ex_meter2.png</filename>
+            <filename>spritesheet_assets/ex_meter3.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

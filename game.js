@@ -10,6 +10,7 @@ var stage = new PIXI.Container();
 var end_stage = new PIXI.Container();
 var guide_stage = new PIXI.Container();
 var credit_stage = new PIXI.Container();
+var difficulty_stage = new PIXI.Container();
 
 PIXI.SCALE_MODES.DEFAULT = PIXI.SCALE_MODES.NEAREST;
 
@@ -25,7 +26,7 @@ PIXI.loader
 var player;
 var hit;
 var enter_door;
-var comsume;
+var consume;
 var enemy_a;
 var enemy_a_health;
 var enemy_b;
@@ -38,6 +39,9 @@ var hp_tag;
 var ex_meter;
 var added_ex_meter;
 var main_map;
+var difficulty_map;
+var normal_button;
+var impossible_button;
 var guide_button;
 var credit_button;
 var play_button;
@@ -72,6 +76,7 @@ var exhaustion = 10;
 var game_win = false;
 var game_over = false;
 var game_active = false;
+var impossible_mode = false;
 var left_button_x = -45;
 var right_arrow_button_x = 125;
 var button_x = 265;
@@ -85,11 +90,7 @@ var right_position = 300;
 */
 function main_menu () {
 	// Resets Game Variables
-	exhaustion = 10;
-	game_win = false;
-	game_over = false;
-	game_active = false;
-	current_level = 6;
+	resetGameValues();
 
 	main_map = createSprite( 0, 0, max_level, max_level, "main_menu.png" );
 	main_stage.addChild( main_map );
@@ -132,6 +133,28 @@ function generateGuide() {
 }
 
 /**
+	Generates Diffculty Screen
+*/
+function difficulty () {
+	difficulty_map = createSprite( 0, 0, max_level, max_level, "difficulty.png" );
+	difficulty_stage.addChild( difficulty_map );
+	
+	normal_button = createButton( 100, 225, "normal_button.png" );
+	difficulty_stage.addChild( normal_button );
+
+	impossible_button = createButton( 100, 325, "impossible_button.png" );
+	difficulty_stage.addChild( impossible_button );
+
+	menu_button = createButton( button_x - step, button_y, "menu_button.png" );
+	difficulty_stage.addChild( menu_button );
+	
+	stage.addChild( difficulty_stage );
+
+	update();
+}
+
+
+/**
 	Initializes the Game Elements
 */
 function generateLevel() {	
@@ -167,6 +190,12 @@ function generateLevel() {
 	enemy_c_health = getRand( 4 );
 	game_stage.addChild( enemy_c );
 
+	if ( impossible_mode ) {
+		enemy_a_health *= 2;
+		enemy_b_health *= 2;
+		enemy_c_health *= 2;
+	}
+
 	hp_tag = createSprite( 0, hp_tag_y, 1, 1, "hp_tag.png" );
 	game_stage.addChild( hp_tag );
 
@@ -192,9 +221,8 @@ function generateEndGame () {
 		end_game = createSprite( 0, 0, max_level, max_level, "game_win.png" );
 		end_stage.addChild( end_game );
 
-		player = createMovieClip(  50, 300, 1, 1, "player", 1, 4 );
+		player = createMovieClip(  50, 350, 1, 1, "player", 1, 4 );
 		end_stage.addChild( player );
-
 	}
 
 	else {
@@ -347,6 +375,13 @@ function openDoor( door_position ) {
 			return true;
 		}
 	}
+	
+	else if ( impossible_mode ) {
+		hit.play();
+		resetLevel();
+		return false;
+	}
+
 	else { // wrong door choice
 		hit.play();
 		wrongDoor();
@@ -392,9 +427,18 @@ function buttonHandler( event ) {
 	
 	switch( event.target ) {
 		case play_button :
+			difficulty(); // load difficulty screen
+			break;
+
+		case normal_button :
 			generateLevel(); // load game screen
 			break;
 
+		case impossible_button :
+			impossible_mode = true;
+			generateLevel(); // load game screen
+			break;
+		
 		case menu_button: 
 			main_menu(); // load menu screen
 			break;
@@ -572,7 +616,14 @@ function createSprite (x, y, scale_x, scale_y, image ) {
 */
 function wrongDoor() {
 	exhaustion--;
-	resetPosition( player );
+	player.position.x = start_x;
+	player.position.y = start_y;
+}
+
+function resetLevel () {
+	exhaustion--;
+	current_level = 6;
+	generateLevel();
 }
 
 /**
@@ -580,15 +631,6 @@ function wrongDoor() {
 */
 function nextLevel () {
 	generateLevel();
-}
-
-/**
-	Helper function to reset the position of the given sprite
-*/
-function resetPosition( sprite ) {
-	sprite.position.x = start_x;
-	sprite.position.y = start_y;
-
 }
 
 /**
@@ -607,6 +649,7 @@ function clearStage () {
 	stage.removeChild( main_stage );
 	stage.removeChild( credit_stage );
 	stage.removeChild( game_stage );
+	stage.removeChild( difficulty_stage );
 }
 
 /**
@@ -640,5 +683,17 @@ function swapPlayer ( x, y, scale_x, scale_y, image ) {
 	game_stage.removeChild( player );
 	player = createSprite( x, y, scale_x, scale_y, image );
 	game_stage.addChild( player );
+}
+
+/**
+	Helper function to reset game values
+*/
+function resetGameValues () {
+	exhaustion = 10;
+	game_win = false;
+	game_over = false;
+	game_active = false;
+	impossible_mode = false;
+	current_level = 6;
 }
 
