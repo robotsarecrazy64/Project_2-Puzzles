@@ -132,7 +132,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>assets.json</filename>
+                <filename></filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -289,9 +289,6 @@
         </map>
         <key>fileList</key>
         <array>
-            <filename>spritesheet_assets/ex_meter2.png</filename>
-            <filename>spritesheet_assets/ex_meter3.png</filename>
-            <filename>spritesheet_assets/ex_meter4.png</filename>
             <filename>spritesheet_assets/ex_meter5.png</filename>
             <filename>spritesheet_assets/ex_meter6.png</filename>
             <filename>spritesheet_assets/ex_meter7.png</filename>
@@ -334,6 +331,9 @@
             <filename>spritesheet_assets/difficulty.png</filename>
             <filename>spritesheet_assets/ex_meter0.png</filename>
             <filename>spritesheet_assets/ex_meter1.png</filename>
+            <filename>spritesheet_assets/ex_meter2.png</filename>
+            <filename>spritesheet_assets/ex_meter3.png</filename>
+            <filename>spritesheet_assets/ex_meter4.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

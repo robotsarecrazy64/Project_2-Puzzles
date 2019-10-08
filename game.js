@@ -50,6 +50,7 @@ var left_arrow_button;
 var right_arrow_button;
 var end_game;
 var credits;
+var blood;
   
 // Variables to improve readability
 var current_level = 6;
@@ -506,8 +507,8 @@ function enemyHandler ( event ) {
 			temp_x = enemy_a.position.x;
 			temp_y = enemy_a.position.y;
 			game_stage.removeChild( enemy_a );
-			enemy_a = createSprite( temp_x, temp_y, 1, 1, "blood.png" );
-			game_stage.addChild( enemy_a );
+			blood = createSprite( temp_x, temp_y, 1, 1, "blood.png" );
+			game_stage.addChild( blood );
 			exhaustion += getRand( 2 );
 		}
 
@@ -524,8 +525,8 @@ function enemyHandler ( event ) {
 			temp_x = enemy_b.position.x;
 			temp_y = enemy_b.position.y;
 			game_stage.removeChild( enemy_b );
-			enemy_a = createSprite( temp_x, temp_y, 1, 1, "blood.png" );
-			game_stage.addChild( enemy_b );
+			blood = createSprite( temp_x, temp_y, 1, 1, "blood.png" );
+			game_stage.addChild( blood );
 			exhaustion += getRand( 2 );
 		}
 		
@@ -542,8 +543,8 @@ function enemyHandler ( event ) {
 			temp_x = enemy_c.position.x;
 			temp_y = enemy_c.position.y;
 			game_stage.removeChild( enemy_c );
-			enemy_c = createSprite( temp_x, temp_y, 1, 1, "blood.png" );
-			game_stage.addChild( enemy_c );
+			blood = createSprite( temp_x, temp_y, 1, 1, "blood.png" );
+			game_stage.addChild( blood );
 			exhaustion += getRand( 2 );
 		}
 
