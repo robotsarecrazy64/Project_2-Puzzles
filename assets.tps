@@ -183,6 +183,7 @@
         <map type="IndividualSpriteSettingsMap">
             <key type="filename">spritesheet_assets/bat1.png</key>
             <key type="filename">spritesheet_assets/bat2.png</key>
+            <key type="filename">spritesheet_assets/blood.png</key>
             <key type="filename">spritesheet_assets/credits.png</key>
             <key type="filename">spritesheet_assets/difficulty.png</key>
             <key type="filename">spritesheet_assets/floor1.png</key>
@@ -288,6 +289,8 @@
         </map>
         <key>fileList</key>
         <array>
+            <filename>spritesheet_assets/ex_meter2.png</filename>
+            <filename>spritesheet_assets/ex_meter3.png</filename>
             <filename>spritesheet_assets/ex_meter4.png</filename>
             <filename>spritesheet_assets/ex_meter5.png</filename>
             <filename>spritesheet_assets/ex_meter6.png</filename>
@@ -325,13 +328,12 @@
             <filename>spritesheet_assets/snake4.png</filename>
             <filename>spritesheet_assets/bat1.png</filename>
             <filename>spritesheet_assets/bat2.png</filename>
+            <filename>spritesheet_assets/blood.png</filename>
             <filename>spritesheet_assets/credit_button.png</filename>
             <filename>spritesheet_assets/credits.png</filename>
             <filename>spritesheet_assets/difficulty.png</filename>
             <filename>spritesheet_assets/ex_meter0.png</filename>
             <filename>spritesheet_assets/ex_meter1.png</filename>
-            <filename>spritesheet_assets/ex_meter2.png</filename>
-            <filename>spritesheet_assets/ex_meter3.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

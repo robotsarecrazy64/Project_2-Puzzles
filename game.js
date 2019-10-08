@@ -92,6 +92,10 @@ function main_menu () {
 	// Resets Game Variables
 	resetGameValues();
 
+	hit = PIXI.audioManager.getAudio("hit.mp3");
+	enter_door = PIXI.audioManager.getAudio("enter_door.mp3");
+	consume = PIXI.audioManager.getAudio("nom.mp3");
+
 	main_map = createSprite( 0, 0, max_level, max_level, "main_menu.png" );
 	main_stage.addChild( main_map );
 	
@@ -117,6 +121,7 @@ function generateGuide() {
 	current_guide++;
 	guide = createSprite( 0, 0, max_level, max_level, ( "guide" + current_guide + ".png" ) );
 	guide_stage.addChild( guide );
+	
 	
 	left_arrow_button = createButton( 0, button_y, "left_arrow_button.png" );
 	guide_stage.addChild( left_arrow_button );
@@ -163,26 +168,46 @@ function generateLevel() {
 	
 	if ( current_level <= 0 ) { current_level = max_level; }
 
+	if ( floor_map != null ) {
+		delete floor_map;
+	}
+	
 	floor_map = createSprite( 0, 0, max_level, max_level, ( "floor" + current_level + ".png" ) );
 	game_stage.addChild( floor_map );
 
 	// Generate Door code
 	floor_code = generateDoorCode();
 
+	if ( player != null ) {
+		delete player;
+	}
+	
 	player = createSprite( start_x, start_y, 1, 1, "player1.png" );
 	game_stage.addChild( player );
 
+	if ( enemy_a != null ) {
+		delete enemy_a;
+	}
+	
 	enemy_a = addEnemy( upper_door_bound, left_wall + getRand( right_position ) );
 	enemy_a.interactive = true;
 	enemy_a.on('mousedown', enemyHandler);
 	enemy_a_health = getRand( 4 );
 	game_stage.addChild( enemy_a );
 	
+	if ( enemy_b != null ) {
+		delete enemy_b;
+	}
+
 	enemy_b = addEnemy( right_wall - getRand( start_x ), right_position );
 	enemy_b.interactive = true;
 	enemy_b.on('mousedown', enemyHandler);
 	enemy_b_health = getRand( 4 );
 	game_stage.addChild( enemy_b );
+
+	if ( enemy_c != null ) {
+		delete enemy_c;
+	}
 
 	enemy_c = addEnemy( left_position, ( upper_wall * 2 ) + getRand( start_x ) );
 	enemy_c.interactive = true;
@@ -196,12 +221,16 @@ function generateLevel() {
 		enemy_c_health *= 2;
 	}
 
+	if ( hp_tag != null ) {
+		delete hp_tag;
+	}
+
 	hp_tag = createSprite( 0, hp_tag_y, 1, 1, "hp_tag.png" );
 	game_stage.addChild( hp_tag );
 
-	hit = PIXI.audioManager.getAudio("hit.mp3");
-	enter_door = PIXI.audioManager.getAudio("enter_door.mp3");
-	consume = PIXI.audioManager.getAudio("nom.mp3");
+	if ( ex_meter != null ) {
+		delete ex_meter;
+	}
 
 	generateExMeter();
 
@@ -467,11 +496,18 @@ function buttonHandler( event ) {
 	Manages enemy click events for each enemy in the level
 */
 function enemyHandler ( event ) {
+	var temp_x;
+	var temp_y;
+	//var blood;
 	if ( event.target == enemy_a ) {
 		enemy_a_health = attackSprite( player, enemy_a, enemy_a_health ); // engage enemy
 		if ( enemy_a_health <= 0 ) { // enemy dies and gives random xp
 			consume.play();
+			temp_x = enemy_a.position.x;
+			temp_y = enemy_a.position.y;
 			game_stage.removeChild( enemy_a );
+			enemy_a = createSprite( temp_x, temp_y, 1, 1, "blood.png" );
+			game_stage.addChild( enemy_a );
 			exhaustion += getRand( 2 );
 		}
 
@@ -485,7 +521,11 @@ function enemyHandler ( event ) {
 		enemy_b_health = attackSprite( player, enemy_b, enemy_b_health ); // engage enemy
 		if ( enemy_b_health <= 0 ) { // enemy dies and gives random xp
 			consume.play();
+			temp_x = enemy_b.position.x;
+			temp_y = enemy_b.position.y;
 			game_stage.removeChild( enemy_b );
+			enemy_a = createSprite( temp_x, temp_y, 1, 1, "blood.png" );
+			game_stage.addChild( enemy_b );
 			exhaustion += getRand( 2 );
 		}
 		
@@ -499,7 +539,11 @@ function enemyHandler ( event ) {
 		enemy_c_health = attackSprite( player, enemy_c, enemy_c_health ); // engage enemy
 		if ( enemy_c_health <= 0 ) { // enemy dies and gives random xp
 			consume.play();
+			temp_x = enemy_c.position.x;
+			temp_y = enemy_c.position.y;
 			game_stage.removeChild( enemy_c );
+			enemy_c = createSprite( temp_x, temp_y, 1, 1, "blood.png" );
+			game_stage.addChild( enemy_c );
 			exhaustion += getRand( 2 );
 		}
 
@@ -696,4 +740,3 @@ function resetGameValues () {
 	impossible_mode = false;
 	current_level = 6;
 }
-
